@@ -13,6 +13,13 @@ inputs.forEach(function (input) {
     })
   })
 })
+inputs.forEach(function (input) {
+  input.addEventListener("keydown", function () {
+    if (input.value && !onlyNumbers(input.value)) {
+      input.style.borderColor = "hsl(279, 6%, 55%)"
+    }
+  })
+})
 form.addEventListener("submit", function (e) {
   e.preventDefault()
   inputs.forEach(function (input) {
@@ -32,52 +39,36 @@ form.addEventListener("submit", function (e) {
           }
         }
       })
-    } else if (!onlyNumbers(input.value)) {
-      if (input.dataset.id !== "card-name") {
-        input.style.borderColor = "red"
-        errorMsg.forEach(function (er) {
-          if (er.dataset.id == input.dataset.id) {
-            er.classList.add("active")
-            er.textContent = `wrong format,numbers only`
-          } else if (
-            input.dataset.id == "card-month" ||
-            input.dataset.id == "card-year"
-          ) {
-            if (er.dataset.id == "card-date") {
-              er.classList.add("active")
-              er.textContent = `wrong format,numbers only`
-            }
-          }
-        })
-      }
     } else {
-      form.classList.add("unshow-form")
-      completed.classList.add("active-completed")
-      console.log(completed.classList)
+      if (input.dataset.id !== "card-name" && onlyNumbers(input.value)) {
+        // form.classList.add("unshow-form")
+        // completed.classList.add("active-completed")
+      }
     }
+    // else if (onlyNumbers(input.value) && input.dataset.id === "card-name") {
+    //   er.classList.add("active")
+    //   er.textContent = `wrong format,letter only`
+
+    // }
   })
 })
-//    {
-// else if (!onlyNumbers(input.value)) {
-//       if (input.dataset.id !== "card-name") {
-//         errorMsg.forEach(function (er) {
-//             if (er.dataset.id == input.dataset.id) {
-//             er.classList.add("active")
-//             er.textContent = `wrong format,numbers only`}
-//         })
-//         // else if (
-//     //       input.dataset.id == "card-month" ||
-//     //       input.dataset.id == "card-year"
-//     //     ) {
-//     //       if (er.dataset.id == "card-date") {
-//     //         er.classList.add("active")
-//     //         er.textContent = `wrong format,numbers only`
-//     //       }
-//     //     }
-//     //   }
-//   }
-
 // number checker
 function onlyNumbers(str) {
   return /^\d+$/.test(str)
 }
+// else if (!onlyNumbers(input.value) && input.dataset.id !== "card-name") {
+//       input.style.borderColor = "red"
+//       errorMsg.forEach(function (er) {
+//         if (er.dataset.id == input.dataset.id) {
+//           er.classList.add("active")
+//           er.textContent = `wrong format,numbers only`
+//         } else if (
+//           input.dataset.id == "card-month" ||
+//           input.dataset.id == "card-year"
+//         ) {
+//           if (er.dataset.id == "card-date") {
+//             er.classList.add("active")
+//             er.textContent = `wrong format,numbers only`
+//           }
+//         }
+//       })

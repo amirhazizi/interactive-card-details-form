@@ -37,12 +37,15 @@ input {
   height: 2.5rem;
   padding: 0 1rem;
   border: 1px solid $cl_Lightgrayishviolet;
-  border-radius: 10px;
+  border-radius: $radius;
 }
 input::placeholder {
   font-size: 1rem;
   font-family: inherit;
   color: $cl_Lightgrayishviolet;
+}
+input:focus {
+  outline: 1px solid $cl_Verydarkviolet;
 }
 label {
   display: inline-block;

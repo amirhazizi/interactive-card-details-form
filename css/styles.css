@@ -58,6 +58,10 @@ input::placeholder {
   color: hsl(270deg, 3%, 87%);
 }
 
+input:focus {
+  outline: 1px solid hsl(278deg, 68%, 11%);
+}
+
 label {
   display: inline-block;
   color: linear-gradient(hsl(249deg, 99%, 64%), hsl(278deg, 94%, 30%));
@@ -150,7 +154,7 @@ footer {
 }
 .content .form-content .form-above {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
 }
 .content .form-content .form-above .form-date {
   width: 50%;
@@ -187,7 +191,7 @@ footer {
 
 .btn {
   margin-top: 2rem;
-  border-radius: 8px;
+  border-radius: 10px;
   background: hsl(278deg, 68%, 11%);
   color: hsl(0deg, 0%, 100%);
   border: none;
@@ -197,6 +201,21 @@ footer {
 }
 .btn:hover {
   background: #3f115a;
+}
+
+.error-text {
+  color: hsl(0deg, 100%, 66%);
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  display: none;
+}
+
+.unshow-form {
+  display: none;
+}
+
+.active {
+  display: block;
 }
 
 @media (min-width: 768px) {
@@ -215,14 +234,14 @@ footer {
     left: 0%;
     width: 480px;
     height: 270px;
-    transform: scale(0.65) translate(-25%, -15%);
+    transform: scale(0.65) translate(-40%, -15%);
   }
   main .header-front-card {
     bottom: 50%;
     left: 0%;
     width: 480px;
     height: 270px;
-    transform: scale(0.65) translate(-10%, 25%);
+    transform: scale(0.65) translate(-20%, 25%);
   }
   main .content {
     align-self: center;
@@ -255,12 +274,12 @@ footer {
   main .header-back-card {
     top: 50%;
     left: 0%;
-    transform: scale(1) translate(40%, 15%);
+    transform: scale(0.9) translate(40%, 5%);
   }
   main .header-front-card {
     bottom: 50%;
     left: 0%;
-    transform: scale(1) translate(35%, 0%);
+    transform: scale(0.9) translate(35%, 0%);
   }
 }
 .test {

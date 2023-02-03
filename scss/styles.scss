@@ -17,7 +17,7 @@
     top: 0;
     right: 0;
     transform: scale(0.65) translate(20%, -9%);
-    border-radius: 10px;
+    border-radius: $radius;
     margin-left: 5rem;
     p {
       position: inherit;
@@ -34,7 +34,7 @@
     width: 450px;
     height: 245px;
     background: url(../images/bg-card-front.png) center/cover no-repeat;
-    border-radius: 10px;
+    border-radius: $radius;
     bottom: 0%;
     left: 0%;
     transform: scale(0.65) translate(-23%, 50%);
@@ -67,7 +67,7 @@
   .form-content {
     .form-above {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       .form-date {
         width: 50%;
         div {
@@ -106,16 +106,31 @@
 }
 .btn {
   margin-top: 2rem;
-  border-radius: 8px;
+  border-radius: $radius;
   background: $cl_Verydarkviolet;
   color: $cl_White;
   border: none;
   padding: 0.8rem 0;
   font-size: 1rem;
-  transition: all 250ms linear;
+  transition: $transition;
   &:hover {
-    background: lighten($color: $cl_Verydarkviolet, $amount: 10);
+    background: lighten($cl_Verydarkviolet, 10);
   }
+}
+// error input
+.error-text {
+  color: $cl_Red;
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  display: none;
+}
+// completed state
+.unshow-form {
+  display: none;
+}
+// active error message & completed state
+.active {
+  display: block;
 }
 @media (min-width: 768px) {
   main {
@@ -131,14 +146,14 @@
         left: 0%;
         width: 480px;
         height: 270px;
-        transform: scale(0.65) translate(-25%, -15%);
+        transform: scale(0.65) translate(-40%, -15%);
       }
       &-front-card {
         bottom: 50%;
         left: 0%;
         width: 480px;
         height: 270px;
-        transform: scale(0.65) translate(-10%, 25%);
+        transform: scale(0.65) translate(-20%, 25%);
       }
     }
     .content {
@@ -179,12 +194,12 @@
       &-back-card {
         top: 50%;
         left: 0%;
-        transform: scale(1) translate(40%, 15%);
+        transform: scale(0.9) translate(40%, 5%);
       }
       &-front-card {
         bottom: 50%;
         left: 0%;
-        transform: scale(1) translate(35%, 0%);
+        transform: scale(0.9) translate(35%, 0%);
       }
     }
   }

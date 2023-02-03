@@ -120,7 +120,7 @@
 // error input
 .error-text {
   color: $cl_Red;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   margin-top: 0.5rem;
   display: none;
 }
@@ -131,6 +131,11 @@
 // active error message & completed state
 .active {
   display: block;
+}
+.content {
+  .active-completed {
+    display: grid;
+  }
 }
 @media (min-width: 768px) {
   main {

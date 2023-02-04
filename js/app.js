@@ -3,7 +3,8 @@ const previews = document.querySelectorAll(".preview")
 const form = document.getElementById("form")
 const errorMsg = document.querySelectorAll(".error-text")
 const completed = document.querySelector(".completed")
-console.log(completed.classList)
+
+// preview change lifetime
 inputs.forEach(function (input) {
   input.addEventListener("keyup", function () {
     previews.forEach(function (pre) {
@@ -13,62 +14,80 @@ inputs.forEach(function (input) {
     })
   })
 })
-inputs.forEach(function (input) {
-  input.addEventListener("keydown", function () {
-    if (input.value && !onlyNumbers(input.value)) {
-      input.style.borderColor = "hsl(279, 6%, 55%)"
-    }
-  })
-})
+// form submit event
 form.addEventListener("submit", function (e) {
+  let valid = 0
   e.preventDefault()
   inputs.forEach(function (input) {
-    if (!input.value) {
-      input.style.borderColor = "red"
-      errorMsg.forEach(function (er) {
-        if (er.dataset.id == input.dataset.id) {
-          er.classList.add("active")
-          er.textContent = `can't be blank`
-        } else if (
-          input.dataset.id == "card-month" ||
-          input.dataset.id == "card-year"
-        ) {
-          if (er.dataset.id == "card-date") {
-            er.classList.add("active")
-            er.textContent = `can't be blank`
-          }
-        }
-      })
+    const value = input.value
+    const id = input.dataset.id
+    if (!value) {
+      showError(input, id, "blank")
+    } else if (id !== "card-name" && !onlyNumbers(value)) {
+      showError(input, id, "format")
     } else {
-      if (input.dataset.id !== "card-name" && onlyNumbers(input.value)) {
-        // form.classList.add("unshow-form")
-        // completed.classList.add("active-completed")
+      if (id === "card-number" && value.length < 16) {
+        showError(input, id, "invalid")
+      } else if (id === "card-month" && value.length >= 3) {
+        showError(input, id, "invalid")
+      } else if (id === "card-year" && value.length >= 3) {
+        showError(input, id, "invalid")
+      } else if (id === "card-cvc" && (value.length > 3 || value.length < 3)) {
+        showError(input, id, "invalid")
+      } else {
+        unShowError(input, id)
+        valid++
+        console.log("valid:", valid)
+        if (inputs.length - 1 === valid) {
+          form.classList.add("unshow-form")
+          completed.classList.add("active-completed")
+        }
       }
     }
-    // else if (onlyNumbers(input.value) && input.dataset.id === "card-name") {
-    //   er.classList.add("active")
-    //   er.textContent = `wrong format,letter only`
-
-    // }
   })
 })
 // number checker
 function onlyNumbers(str) {
   return /^\d+$/.test(str)
 }
-// else if (!onlyNumbers(input.value) && input.dataset.id !== "card-name") {
-//       input.style.borderColor = "red"
-//       errorMsg.forEach(function (er) {
-//         if (er.dataset.id == input.dataset.id) {
-//           er.classList.add("active")
-//           er.textContent = `wrong format,numbers only`
-//         } else if (
-//           input.dataset.id == "card-month" ||
-//           input.dataset.id == "card-year"
-//         ) {
-//           if (er.dataset.id == "card-date") {
-//             er.classList.add("active")
-//             er.textContent = `wrong format,numbers only`
-//           }
-//         }
-//       })
+
+function showError(input, id, action) {
+  input.style.borderColor = "red"
+  errorMsg.forEach(function (er) {
+    if (er.dataset.id == id) {
+      er.classList.add("active")
+      if (action == "blank") {
+        er.textContent = `can't be blank`
+      } else if (action == "format") {
+        er.textContent = `wrong format numbers only`
+      } else {
+        er.textContent = `unvalid number`
+      }
+    } else if (id == "card-month" || id == "card-year") {
+      if (er.dataset.id == "card-date") {
+        er.classList.add("active")
+        if (action == "blank") {
+          er.textContent = `can't be blank`
+        } else if (action == "format") {
+          er.textContent = `wrong format numbers only`
+        } else {
+          er.textContent = `unvalid number`
+        }
+      }
+    }
+  })
+}
+function unShowError(input, id) {
+  input.style.borderColor = "hsl(279, 6%, 55%)"
+  errorMsg.forEach(function (er) {
+    if (er.dataset.id == id) {
+      er.classList.remove("active")
+      er.textContent = ``
+    } else if (id == "card-month" || id == "card-year") {
+      if (er.dataset.id == "card-date") {
+        er.classList.remove("active")
+        er.textContent = ``
+      }
+    }
+  })
+}

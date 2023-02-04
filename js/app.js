@@ -3,6 +3,7 @@ const previews = document.querySelectorAll(".preview")
 const form = document.getElementById("form")
 const errorMsg = document.querySelectorAll(".error-text")
 const completed = document.querySelector(".completed")
+const completedBtn = document.querySelector("#completed-btn")
 
 // preview change lifetime
 inputs.forEach(function (input) {
@@ -104,3 +105,8 @@ function unShowError(input, id) {
     }
   })
 }
+
+completedBtn.addEventListener("click", function () {
+  form.classList.remove("unshow-form")
+  completed.classList.remove("active-completed")
+})

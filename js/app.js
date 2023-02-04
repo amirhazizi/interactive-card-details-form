@@ -26,22 +26,29 @@ form.addEventListener("submit", function (e) {
     } else if (id === "card-number" && !creditNumber(value)) {
       showError(input, id, "format")
       console.log("number")
-    } else if (id !== "card-name" && !onlyNumbers(value)) {
+    } else if (
+      id !== "card-name" &&
+      id !== "card-number" &&
+      !onlyNumbers(value)
+    ) {
       showError(input, id, "format")
     } else {
       if (id === "card-number" && value.length < 16) {
         showError(input, id, "invalid")
-      } else if (id === "card-month" && value.length != 2) {
+      } else if (
+        id === "card-month" &&
+        value.length >= 2 &&
+        parseInt(value) > 12
+      ) {
         showError(input, id, "invalid")
       } else if (id === "card-year" && value.length != 2) {
         showError(input, id, "invalid")
-      } else if (id === "card-cvc" && (value.length > 3 || value.length < 3)) {
+      } else if (id === "card-cvc" && value.length !== 3) {
         showError(input, id, "invalid")
       } else {
         unShowError(input, id)
         valid++
-        console.log("valid:", valid)
-        if (inputs.length - 1 === valid) {
+        if (inputs.length === valid) {
           form.classList.add("unshow-form")
           completed.classList.add("active-completed")
         }
@@ -53,6 +60,7 @@ form.addEventListener("submit", function (e) {
 function onlyNumbers(str) {
   return /^\d+$/.test(str)
 }
+// credit card number checker
 function creditNumber(str) {
   var myRegExp = /[0-9]{4}?[-\s]?[0-9]{4}[-\s]?[0-9]{4}[-\s]?[0-9]{4}$/im
   return myRegExp.test(str)
@@ -63,11 +71,7 @@ function showError(input, id, action) {
   errorMsg.forEach(function (er) {
     if (er.dataset.id == id) {
       addClass(er, action)
-    } else if (id == "card-month") {
-      if (er.dataset.id == "card-date") {
-        addClass(er, action)
-      }
-    } else if (id == "card-year") {
+    } else if (id === "card-month" || id === "card-year") {
       if (er.dataset.id == "card-date") {
         addClass(er, action)
       }
@@ -93,11 +97,6 @@ function unShowError(input, id) {
       er.classList.remove("active")
       er.textContent = ``
     } else if (id == "card-month") {
-      if (er.dataset.id == "card-date") {
-        er.classList.remove("active")
-        er.textContent = ``
-      }
-    } else if (id == "card-year") {
       if (er.dataset.id == "card-date") {
         er.classList.remove("active")
         er.textContent = ``

@@ -8,7 +8,6 @@
   width: 100%;
   height: 240px;
   background: url(../images/bg-main-mobile.png) center/cover no-repeat;
-  //   overflow-x: hidden;
   &-back-card {
     position: absolute;
     width: 450px;
@@ -83,7 +82,6 @@
       }
     }
   }
-
   .completed {
     text-align: center;
     display: none;
@@ -134,7 +132,7 @@
 }
 .content {
   .active-completed {
-    display: grid;
+    display: block;
   }
 }
 @media (min-width: 768px) {
@@ -189,7 +187,7 @@
     }
   }
 }
-@media (min-width: 1430px) {
+@media (min-width: 1440px) {
   main {
     .content {
       width: 40%;
@@ -208,8 +206,4 @@
       }
     }
   }
-}
-.test {
-  position: absolute;
-  color: whitesmoke;
 }
